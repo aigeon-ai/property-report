@@ -2,38 +2,41 @@
 
 ## Project Description
 
-Aigeon AI Property Report is a Python-based server application designed to fetch detailed property reports using specific address and owner information. The application leverages the FastMCP framework to provide a streamlined and efficient mechanism for retrieving property data from external APIs.
+The `aigeon-ai.property-report` is a Python-based server application designed to interact with a property records search API. It provides functionality to retrieve detailed property reports based on address and optional owner information. This application leverages the FastMCP framework to facilitate communication with external APIs, ensuring secure and efficient data retrieval.
 
 ## Features Overview
 
-- **Property Report Retrieval**: The core functionality of this application is to obtain comprehensive property reports based on user-provided address details and optional owner information.
-- **OAuth2 Authentication**: Secure token-based authentication is implemented to access the external API services.
-- **RapidAPI Integration**: Utilizes the RapidAPI platform to interface with the property report service.
-- **Efficient Token Management**: Implements a caching mechanism to store and manage authentication tokens, minimizing unnecessary API calls.
+- **Property Report Retrieval**: Fetch comprehensive property reports using address details and optional owner information.
+- **OAuth Authentication**: Secure API access using OAuth token-based authentication.
+- **FastMCP Integration**: Utilizes the FastMCP framework for streamlined server operations and API interactions.
+- **JSON Payload Handling**: Constructs and sends JSON payloads for API requests, ensuring proper data formatting.
 
 ## Main Features and Functionality
 
-1. **Get Property Report**: The primary function `GetReport` allows users to fetch property reports by providing the street address, city, state, postal code, and optionally, the property owner's first and last names.
-2. **Authentication Handling**: The application manages OAuth2 token generation and renewal, ensuring secure and efficient access to the property report API.
-3. **Data Serialization**: Input data is serialized into JSON format for compatibility with the API requirements.
-4. **Error Handling**: Basic error handling is implemented to manage unsuccessful API responses gracefully.
+1. **Get Property Report**: The core functionality of the application is to retrieve property reports based on provided address and owner details. This is achieved through a well-defined function that communicates with an external API.
+
+2. **Token Management**: The application implements a mechanism to manage OAuth tokens, ensuring that API requests are authenticated and tokens are refreshed as needed.
+
+3. **API Communication**: Utilizes HTTP connections to send requests and receive responses from the property report API, handling JSON data for both requests and responses.
 
 ## Main Functions Description
 
 ### `GetReport`
 
-- **Purpose**: Fetches a detailed property report based on the provided address and optional owner information.
-- **Parameters**:
-  - `Addr1` (str): Street address of the property.
-  - `City` (str): City where the property is located.
-  - `StateProv` (str): State abbreviation (e.g., CA for California).
-  - `PostalCode` (str): Zip code of the property.
-  - `FirstName` (Union[str, None], optional): First name of the property owner.
-  - `LastName` (Union[str, None], optional): Last name of the property owner.
-- **Returns**: A JSON string containing the property report data if the request is successful; otherwise, an empty dictionary.
-- **Implementation Details**:
-  - Checks if the current authentication token is valid; if not, it requests a new token using client credentials.
-  - Constructs a JSON payload with the provided parameters and sends a POST request to the property report API.
-  - Handles the API response, decoding the data if the request is successful.
+This function is the primary tool for fetching property reports. It requires specific parameters to be provided:
 
-This application is designed to be run as a standalone server, utilizing the FastMCP framework to handle communication and processing tasks efficiently. The integration with external APIs is abstracted to provide a seamless experience for users seeking property information.
+- **Addr1**: (str) The street address of the property.
+- **City**: (str) The city where the property is located.
+- **StateProv**: (str) The two-letter state code (e.g., CA for California) of the property.
+- **PostalCode**: (str) The zip code of the property.
+- **FirstName**: (Optional[str]) The first name of the property owner.
+- **LastName**: (Optional[str]) The last name of the property owner.
+
+#### Functionality
+
+- **Token Verification and Refresh**: Checks if the current OAuth token is valid or needs to be refreshed. If expired, it requests a new token using client credentials.
+- **API Request Construction**: Constructs a JSON payload with the provided address and owner information.
+- **API Request Execution**: Sends the constructed request to the property report API and processes the response.
+- **Response Handling**: Returns the property report data if the request is successful, or an empty dictionary if an error occurs.
+
+This function is integral to the application, enabling users to obtain detailed property information efficiently and securely.
